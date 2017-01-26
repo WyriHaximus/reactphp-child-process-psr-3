@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Psr\Log\AbstractLogger;
+use stdClass;
 use React\EventLoop\Factory;
 use RuntimeException;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Payload;
@@ -74,11 +75,23 @@ final class ChildProcessTest extends TestCase
         self::assertSame([$log], $logger->logs);
     }
 
+    public function provideInvalidLoggers()
+    {
+        yield [null];
+        yield ['string'];
+        yield [new stdClass()];
+        yield [123];
+        yield [function () {}];
+        yield [0xfff];
+        yield [0b0001001100110111];
+    }
+
     /**
+     * @dataProvider provideInvalidLoggers
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Passed logger isn't a PSR-3 logger
      */
-    public function testNotAlogger()
+    public function testNotAlogger($logger)
     {
         $loop = Factory::create();
 
@@ -103,8 +116,8 @@ final class ChildProcessTest extends TestCase
         await(
             $setupCallback(
                 new Payload([
-                    'factory' => function () {
-                        return null;
+                    'factory' => function () use ($logger) {
+                        return $logger;
                     }
                 ])
             ),
