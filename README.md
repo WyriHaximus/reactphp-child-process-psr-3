@@ -1,7 +1,7 @@
-# ChildProcessMessenger
+# ReactPHP Child Process wrapper around PSR-3 loggers
 [![Linux Build Status](https://travis-ci.org/WyriHaximus/reactphp-child-process-psr-3.png)](https://travis-ci.org/WyriHaximus/reactphp-child-process-psr-3)
 [![Latest Stable Version](https://poser.pugx.org/WyriHaximus/react-child-process-psr-3/v/stable.png)](https://packagist.org/packages/WyriHaximus/react-child-process-psr-3)
-[![Total Downloads](https://poser.pugx.org/WyriHaximus/react-child-process-psr-3/downloads.png)](https://packagist.org/packages/WyriHaximus/react-child-process-psr-3)
+[![Total Downloads](https://poser.pugx.org/WyriHaximus/react-child-process-psr-3/downloads.png)](https://packagist.org/packages/WyriHaximus/react-child-process-psr-3/stats)
 [![Code Coverage](https://scrutinizer-ci.com/g/WyriHaximus/reactphp-child-process-psr-3/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/WyriHaximus/reactphp-child-process-psr-3/?branch=master)
 [![License](https://poser.pugx.org/WyriHaximus/react-child-process-psr-3/license.png)](https://packagist.org/packages/wyrihaximus/react-child-process-psr-3)
 [![PHP 7 ready](http://php7ready.timesplinter.ch/WyriHaximus/reactphp-child-process-psr-3/badge.svg)](https://travis-ci.org/WyriHaximus/reactphp-child-process-psr-3)
