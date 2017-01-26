@@ -1,0 +1,36 @@
+{
+    "name": "wyrihaximus/react-child-process-psr-3",
+    "description": "Wrap PSR-3 logger into a child process",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cees-Jan Kiewiet",
+            "email": "ceesjank@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0 || ^5.6",
+        "psr/log": "^1.0",
+        "wyrihaximus/react-child-process-messenger": "^2.7"
+    },
+    "require-dev": {
+        "clue/block-react": "^1.1",
+        "monolog/monolog": "^1.22",
+        "phpunit/phpunit": "^5.6",
+        "squizlabs/php_codesniffer": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "WyriHaximus\\React\\ChildProcess\\PSR3\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WyriHaximus\\React\\Tests\\ChildProcess\\PSR3\\": "tests/"
+        },
+        "files": ["src/functions_include.php"]
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
