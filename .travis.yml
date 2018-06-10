@@ -18,6 +18,8 @@ env:
 
 ## Build matrix for lowest and highest possible targets
 matrix:
+  allow_failures:
+  - php: nightly
   include:
     - php: 7.0
       env:
