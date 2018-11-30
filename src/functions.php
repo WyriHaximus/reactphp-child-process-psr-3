@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace WyriHaximus\React\ChildProcess\PSR3;
 
@@ -11,7 +11,7 @@ function example_stream_factory(): LoggerInterface
     return new Logger(
         'example',
         [
-            new StreamHandler(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'example.log'),
+            new StreamHandler(\dirname(__DIR__) . DIRECTORY_SEPARATOR . 'example.log'),
         ]
     );
 }

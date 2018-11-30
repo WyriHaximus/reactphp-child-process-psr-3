@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace WyriHaximus\React\ChildProcess\PSR3;
 
@@ -20,12 +20,7 @@ final class ChildProcess implements ChildInterface
      */
     private $logger;
 
-    public static function create(Messenger $messenger, LoopInterface $loop)
-    {
-        new static($messenger, $loop);
-    }
-
-    protected function __construct(Messenger $messenger, LoopInterface $loop)
+    private function __construct(Messenger $messenger, LoopInterface $loop)
     {
         $messenger->registerRpc('logger.setup', function (Payload $payload) {
             return $this->setup($payload);
@@ -42,12 +37,18 @@ final class ChildProcess implements ChildInterface
             if (!($this->logger instanceof LoggerInterface)) {
                 throw new InvalidArgumentException('Passed logger isn\'t a PSR-3 logger');
             }
+
             return resolve([
                 'success' => true,
             ]);
         } catch (Throwable $throwable) {
             return reject($throwable);
         }
+    }
+
+    public static function create(Messenger $messenger, LoopInterface $loop): void
+    {
+        new static($messenger, $loop);
     }
 
     private function log(Payload $payload): PromiseInterface
@@ -58,6 +59,7 @@ final class ChildProcess implements ChildInterface
                 $payload['message'],
                 $payload['context']
             );
+
             return resolve([
                 'success' => true,
             ]);

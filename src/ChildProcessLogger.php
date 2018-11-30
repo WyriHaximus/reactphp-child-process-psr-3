@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace WyriHaximus\React\ChildProcess\PSR3;
 
@@ -19,19 +19,9 @@ final class ChildProcessLogger implements LoggerInterface
      */
     private $messenger;
 
-    public static function create(LoopInterface $loop, string $factory): PromiseInterface
-    {
-        return Factory::parentFromClass(
-            ChildProcess::class,
-            $loop
-        )->then(function (Messenger $messenger) use ($factory) {
-            return new self($messenger, $factory);
-        });
-    }
-
     /**
      * @param Messenger $messenger
-     * @param string $factory
+     * @param string    $factory
      */
     private function __construct(Messenger $messenger, string $factory)
     {
@@ -44,12 +34,22 @@ final class ChildProcessLogger implements LoggerInterface
         ))->done();
     }
 
+    public static function create(LoopInterface $loop, string $factory): PromiseInterface
+    {
+        return Factory::parentFromClass(
+            ChildProcess::class,
+            $loop
+        )->then(function (Messenger $messenger) use ($factory) {
+            return new self($messenger, $factory);
+        });
+    }
+
     /**
-     * @param mixed $level
+     * @param mixed  $level
      * @param string $message
-     * @param array $context
+     * @param array  $context
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         $this->messenger->rpc(MessageFactory::rpc(
             'logger.log',
