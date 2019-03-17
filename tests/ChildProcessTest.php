@@ -2,6 +2,7 @@
 
 namespace WyriHaximus\React\Tests\ChildProcess\PSR3;
 
+use function Clue\React\Block\await;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
@@ -12,7 +13,6 @@ use stdClass;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Payload;
 use WyriHaximus\React\ChildProcess\Messenger\Messenger;
 use WyriHaximus\React\ChildProcess\PSR3\ChildProcess;
-use function Clue\React\Block\await;
 
 /**
  * @internal
@@ -93,12 +93,13 @@ final class ChildProcessTest extends TestCase
 
     /**
      * @dataProvider provideInvalidLoggers
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Passed logger isn't a PSR-3 logger
      * @param mixed $logger
      */
     public function testNotAlogger($logger): void
     {
+        static::expectException(InvalidArgumentException::class);
+        static::expectExceptionMessage('Passed logger isn\'t a PSR-3 logger');
+
         $loop = Factory::create();
 
         $setupCallback = null;
@@ -133,12 +134,11 @@ final class ChildProcessTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Something went wrong
-     */
     public function testErrorWhileLogging(): void
     {
+        self::expectException(RuntimeException::class);
+        self::expectExceptionMessage('Something went wrong');
+
         $loop = Factory::create();
 
         $log = [

@@ -6,12 +6,12 @@ use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use React\EventLoop\LoopInterface;
 use React\Promise\PromiseInterface;
+use function React\Promise\reject;
+use function React\Promise\resolve;
 use Throwable;
 use WyriHaximus\React\ChildProcess\Messenger\ChildInterface;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Payload;
 use WyriHaximus\React\ChildProcess\Messenger\Messenger;
-use function React\Promise\reject;
-use function React\Promise\resolve;
 
 final class ChildProcess implements ChildInterface
 {
