@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace WyriHaximus\React\ChildProcess\PSR3;
 
@@ -14,43 +16,46 @@ final class ChildProcessLogger implements LoggerInterface
 {
     use LoggerTrait;
 
-    /**
-     * @var Messenger
-     */
-    private $messenger;
+    private Messenger $messenger;
 
-    /**
-     * @param Messenger $messenger
-     * @param string    $factory
-     */
     private function __construct(Messenger $messenger, string $factory)
     {
         $this->messenger = $messenger;
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress UndefinedInterfaceMethod
+         */
         $this->messenger->rpc(MessageFactory::rpc(
             'logger.setup',
-            [
-                'factory' => $factory,
-            ]
+            ['factory' => $factory]
         ))->done();
     }
 
     public static function create(LoopInterface $loop, string $factory): PromiseInterface
     {
+        /**
+         * @psalm-suppress TooManyTemplateParams
+         */
         return Factory::parentFromClass(
             ChildProcess::class,
             $loop
-        )->then(function (Messenger $messenger) use ($factory) {
+        )->then(static function (Messenger $messenger) use ($factory): ChildProcessLogger {
             return new self($messenger, $factory);
         });
     }
 
     /**
-     * @param mixed  $level
-     * @param string $message
-     * @param array  $context
+     * @param mixed        $level
+     * @param array<mixed> $context
+     *
+     * @psalm-suppress MissingParamType
      */
-    public function log($level, $message, array $context = []): void
+    public function log($level, $message, array $context = []): void // phpcs:disabled
     {
+        /**
+         * @phpstan-ignore-next-line
+         * @psalm-suppress UndefinedInterfaceMethod
+         */
         $this->messenger->rpc(MessageFactory::rpc(
             'logger.log',
             [
